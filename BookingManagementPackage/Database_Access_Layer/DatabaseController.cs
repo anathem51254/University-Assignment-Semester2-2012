@@ -87,6 +87,9 @@ namespace Database_Access_Layer
                 case "03":
                     returnData = ModifyBooking(data);
                     break;
+                case "04":
+                    returnData = DeleteBooking(data);
+                    break;
                 case "10":
                     
                     break;
@@ -272,7 +275,62 @@ namespace Database_Access_Layer
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("ERROR[CreateBooking()]: " + ex.Message);
+                Debug.WriteLine("ERROR[ModifyBooking()]: " + ex.Message);
+                this.CloseConnection();
+                return null;
+            }
+        }
+
+        private ArrayList DeleteBooking(Object data)
+        {
+            ArrayList tempArrList = new ArrayList();
+
+            string BookingId = data.ToString();
+
+            string query = "DELETE FROM [Bookings] WHERE BookingId = '" + BookingId + "'";
+
+            try
+            {
+                if (this.OpenConnection() == true)
+                {
+
+                    OleDbCommand cmd1 = new OleDbCommand(query, dbCon);
+                    cmd1.ExecuteNonQuery();
+
+                    OleDbCommand cmd2 = new OleDbCommand("SELECT * FROM [Bookings] WHERE BookingId = '" + BookingId + "'", dbCon);
+                    //cmd.Parameters.AddWithValue(@param, param);
+                    OleDbDataReader dataReader = cmd2.ExecuteReader();
+
+                    if (dataReader.Read())
+                    {
+                        tempArrList.Add(dataReader["BookingId"] + "");
+                        tempArrList.Add(dataReader["MemberId"] + "");
+                        tempArrList.Add(dataReader["DateTime"] + "");
+                        tempArrList.Add(dataReader["ServiceDetails"] + "");
+                        tempArrList.Add(dataReader["DateBooked"] + "");
+                        tempArrList.Add(dataReader["Status"] + "");
+                        tempArrList.Add(dataReader["ServiceLog"] + "");
+
+                        dataReader.Close();
+                        this.CloseConnection();
+                        return tempArrList;
+                    }
+
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return null;
+                }
+                else
+                {
+                    Debug.WriteLine("ERROR[DATABASE_CONNECTION_UNAVAILABLE]");
+                    this.CloseConnection();
+                    return null;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("ERROR[DeleteBooking()]: " + ex.Message);
                 this.CloseConnection();
                 return null;
             }

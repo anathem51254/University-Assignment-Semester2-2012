@@ -104,6 +104,21 @@ namespace Business_Layer
             return ModifyBooking(tempData);
         }
 
+        public int ProcessDeleteBooking(Object data)
+        {
+            string bookingId = data.ToString();
+            Match m = Regex.Match(bookingId, @"(\bb\d{7}$)", RegexOptions.None);
+            if (m.Success)
+            {
+                return FindBooking(bookingId);
+            }
+            else
+            {
+                Debug.WriteLine("ERROR[INPUTFIELD]\n");
+                return -1;
+            }
+        }
+
         /// Refactoring Idea:
         /// Combine FindBooking, CreateBooking, ModifyBooking
         /// using flags to switch to the required operation
