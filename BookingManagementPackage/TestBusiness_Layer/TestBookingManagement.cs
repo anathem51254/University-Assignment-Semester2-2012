@@ -25,16 +25,7 @@ namespace TestBusiness_Layer
         [Test]
         public void Find_Booking_Test_1()
         {
-            // if 1 is returned then the booking was found.
             int bookingFound = bookingManagement.ProcessFindBooking("b1000002");
-            
-            //if (bookingFound == 1)
-            //for (int i = 1; i <= 7; i++)
-            //{
-            //    Console.Out.WriteLine(bookingManagement.GetBookingDetail("0" + i.ToString()) + "\n");
-            //}
-            //else
-            //    Console.Out.WriteLine(bookingFound.ToString() + ": Booking was not found.");
         }
 
         /// <summary>
@@ -44,11 +35,6 @@ namespace TestBusiness_Layer
         public void Find_Booking_Test_2()
         {
             int bookingFound = bookingManagement.ProcessFindBooking("b9999999");
-            //if (bookingFound == 1)
-            //    for (int i = 1; i <= 6; i++)
-            //        Console.Out.WriteLine(bookingManagement.GetBookingDetail("0" + i.ToString()) + "\n");
-            //else
-            //    Console.Out.WriteLine(bookingFound.ToString() + ": Booking was not found.");
         }
 
         /// <summary>
@@ -58,29 +44,18 @@ namespace TestBusiness_Layer
         public void Find_Booking_Test_3()
         {
             int bookingFound = bookingManagement.ProcessFindBooking("adsjklasjdlkja");
-            //if (bookingFound == 1)
-            //    for (int i = 1; i <= 6; i++)
-            //        Console.Out.WriteLine(bookingManagement.GetBookingDetail("0" + i.ToString()) + "\n");
-            //else
-            //    Console.Out.WriteLine(bookingFound.ToString() + ": Incorrect Booking Id.");
         }
 
         /// <summary>
-        /// Test booking Id correct format ( 1 letter followed by 7 digits
+        /// Test booking Id correct format ( 1 letter followed by 7 digits )
         /// </summary>
         [Test]
         public void Find_Booking_Test_4()
         {
             int bookingFound = bookingManagement.ProcessFindBooking("z9191zzz");
-            //if (bookingFound == 1)
-            //    for (int i = 1; i <= 6; i++)
-            //        Console.Out.WriteLine(bookingManagement.GetBookingDetail("0" + i.ToString()) + "\n");
-            //else
-            //    Console.Out.WriteLine(bookingFound.ToString() + ": Incorrect Booking Id.");
         }
 
         #endregion
-
     }
 
     [TestFixture]
@@ -153,6 +128,7 @@ namespace TestBusiness_Layer
         /// Not yet inplemented
         /// </summary>
         [Test]
+        [Ignore("Ignore: Not Implemented")]
         public void Create_Booking_Test_5()
         {
             string[] str = new string[2];
@@ -162,7 +138,6 @@ namespace TestBusiness_Layer
             bookingManagement.ProcessCreateBooking(str);
         }
         #endregion
-
     }
 
     [TestFixture]
@@ -192,8 +167,7 @@ namespace TestBusiness_Layer
 
         #region Test Methods
         /// <summary>
-        /// Test creation of a booking with correct information
-        /// As well as testing it is valid information (not fully implemented)
+        /// Test modification of a booking with correct information
         /// </summary>
         [Test]
         public void Modify_Booking_Test_1()
@@ -207,7 +181,7 @@ namespace TestBusiness_Layer
         }
 
         /// <summary>
-        /// Test creation of a booking with some information blank
+        /// Test modification of a booking with some information blank
         /// </summary>
         [Test]
         public void Modify_Booking_Test_2()
@@ -221,7 +195,7 @@ namespace TestBusiness_Layer
         }
 
         /// <summary>
-        /// Test creation of a booking with some information blank
+        /// Test modifcation of a booking with some information blank
         /// </summary>
         [Test]
         public void Modify_Booking_Test_3()
@@ -250,8 +224,10 @@ namespace TestBusiness_Layer
 
         /// <summary>
         /// Test the information is the the correct format
+        /// Not Implemented
         /// </summary>
         [Test]
+        [Ignore("Ignore: Not Implemented")]
         public void Modify_Booking_Test_5()
         {
             string[] str = new string[3];
@@ -303,6 +279,59 @@ namespace TestBusiness_Layer
             }
         }
         #endregion
+    }
 
+    [TestFixture]
+    public class TestFixtureDeleteBooking
+    {
+        BookingManagement bookingManagement;
+
+        [SetUp]
+        public void TestBookingManagementSetup()
+        {
+            bookingManagement = new BookingManagement();
+        }
+
+        #region Test Methods
+        /// <summary>
+        /// Delete a booking in the database
+        /// </summary>
+        [Test]
+        public void Delete_Booking_Test_1()
+        {
+            string bookingId = "b1000005";
+            bookingManagement.ProcessDeleteBooking(bookingId);
+        }
+
+        /// <summary>
+        /// Delete a booking not in the database
+        /// </summary>
+        [Test]
+        public void Delete_Booking_Test_2()
+        {
+            string bookingId = "b1000200";
+            bookingManagement.ProcessDeleteBooking(bookingId);
+        }
+
+        /// <summary>
+        /// Test booking id is correct length
+        /// </summary>
+        [Test]
+        public void Delete_Booking_Test_3()
+        {
+            string bookingId = "ahjldasldkjalskjdlkjsalkdj";
+            bookingManagement.ProcessDeleteBooking(bookingId);
+        }
+
+        /// <summary>
+        /// Test booking Id correct format ( 1 letter followed by 7 digits )
+        /// </summary>
+        [Test]
+        public void Delete_Booking_Test_4()
+        {
+            string bookingId = "z9191zzz";
+            bookingManagement.ProcessDeleteBooking(bookingId);
+        }
+        #endregion
     }
 }

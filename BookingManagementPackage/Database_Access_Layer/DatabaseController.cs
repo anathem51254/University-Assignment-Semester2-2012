@@ -70,7 +70,12 @@ namespace Database_Access_Layer
 
         #endregion
 
-        // handle request from Business_Layer
+        /// <summary>
+        /// Handle the request fro mthe Business_Layer
+        /// </summary>
+        /// <param name="op"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public Object HandleRequest(string op, Object data)
         {
             Object returnData = null;
@@ -102,7 +107,11 @@ namespace Database_Access_Layer
         /// some parts of the SQL operations could be simplified
         /// and turned into one function
 
-        // find a booking's details sql operation
+        /// <summary>
+        /// Runes the sql query to find the selected record
+        /// </summary>
+        /// <param name="bookingId"></param>
+        /// <returns></returns>
         private ArrayList FindBooking(string bookingId)
         {
             ArrayList tempArrList = new ArrayList();
@@ -148,8 +157,11 @@ namespace Database_Access_Layer
             }
         }
 
-        // create a booking sql operation
-        // returns 1 if creation was successful and 0 if not successful
+        /// <summary>
+        /// Runs the sql query to create a booking
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         private ArrayList CreateBooking(Object data)
         {
             ArrayList tempArrList = new ArrayList();
@@ -224,8 +236,11 @@ namespace Database_Access_Layer
             }
         }
 
-        // modify a booking sql operation
-        // returns 1 if update was successful and 0 if not successful
+        /// <summary>
+        /// Runs the sql query to modify the selected record
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         private ArrayList ModifyBooking(Object data)
         {
             ArrayList tempArrList = new ArrayList();
@@ -281,6 +296,11 @@ namespace Database_Access_Layer
             }
         }
 
+        /// <summary>
+        /// Runs the sql query to delete the selected record
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         private ArrayList DeleteBooking(Object data)
         {
             ArrayList tempArrList = new ArrayList();

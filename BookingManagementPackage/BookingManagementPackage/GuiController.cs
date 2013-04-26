@@ -182,6 +182,7 @@ namespace BookingManagementPackage
         {
             get { return ClearBookingDetails; }
         }
+       
         /// <summary>
         /// Property used for updating booking information
         /// </summary>

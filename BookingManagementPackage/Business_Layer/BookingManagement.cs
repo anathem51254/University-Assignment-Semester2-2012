@@ -51,6 +51,11 @@ namespace Business_Layer
             }
         }
 
+        /// <summary>
+        /// Processes the finding of a booking
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public int ProcessFindBooking(Object data)
         {
             string bookingId = data.ToString();
@@ -66,6 +71,11 @@ namespace Business_Layer
             }
         }
 
+        /// <summary>
+        /// Processes the creation of a booking
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public int ProcessCreateBooking(Object data)
         {
             string[] newBooking = (string[])data;
@@ -83,6 +93,11 @@ namespace Business_Layer
             return CreateBooking(data);
         }
 
+        /// <summary>
+        /// Processes the modification of a booking
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public int ProcessModifyBooking(Object data)
         {
             string[] newBooking = (string[])data;
@@ -105,6 +120,12 @@ namespace Business_Layer
             return ModifyBooking(tempData);
         }
 
+        /// <summary>
+        /// For Testing
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="test"></param>
+        /// <returns></returns>
         public int ProcessModifyBooking(Object data, int test)
         {
             string[] newBooking = (string[])data;
@@ -127,6 +148,11 @@ namespace Business_Layer
             return ModifyBooking(tempData);
         }
 
+        /// <summary>
+        /// Processes the deletion of a booking
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public int ProcessDeleteBooking(Object data)
         {
             string bookingId = data.ToString();
