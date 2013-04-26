@@ -19,7 +19,6 @@ namespace Business_Layer
         private string ServiceDetails;
         private string DateBooked;
         private string Status;
-        //temp holder for key pair data structure
         private string ServiceLog;
 
         public Booking()
@@ -43,6 +42,8 @@ namespace Business_Layer
             Status = BookingDetailsData[5].ToString();
             ServiceLog = BookingDetailsData[6].ToString();
         }
+
+        #region Properties
 
         public string bookingId
         {
@@ -128,5 +129,6 @@ namespace Business_Layer
             }
         }
 
+        #endregion
     }
 }
