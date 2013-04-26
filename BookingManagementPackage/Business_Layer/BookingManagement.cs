@@ -11,11 +11,14 @@ namespace Business_Layer
 {
     public class BookingManagement
     {
-        private DatabaseController dbController = new DatabaseController();
+        private DatabaseController dbController;
 
         private Booking bookingObj;
 
-        private int modifyBookingState = 0;
+        public BookingManagement()
+        {
+            dbController = new DatabaseController();          
+        }
 
         /// <summary>
         /// Processes the requests from the GUIController in the BookingManagementPackage
@@ -23,22 +26,20 @@ namespace Business_Layer
         /// <param name="btnId">Request Id</param>
         /// <param name="data">Information needed to complete request</param>
         /// <returns></returns>
-        public int BusinessLogicController(string btnId, Object data)
+        public int BusinessLogicController(int btnId, Object data)
         {
             try
             {
                 switch (btnId)
                 {
-                    case "01":
+                    case 1:
                         return ProcessFindBooking(data);
-                    case "02":
+                    case 2:
                         return ProcessCreateBooking(data);
-                    case "03":
+                    case 3:
                         return ProcessModifyBooking(data);
-                    case "10":
-                        // test
-                        dbController.HandleRequest("10", (string)data);
-                        return 1;
+                    case 4:
+                        return ProcessDeleteBooking(data);
                     default:
                         return 0;
                 }
@@ -104,13 +105,35 @@ namespace Business_Layer
             return ModifyBooking(tempData);
         }
 
+        public int ProcessModifyBooking(Object data, int test)
+        {
+            string[] newBooking = (string[])data;
+
+            /// Check booking detail textbox's and make sure they have data in them
+            /// and print out which boxes need data
+
+            if (newBooking[0] == "" && newBooking[1] == "")
+                return 2;
+            else if (newBooking[0] == "")
+                return 3;
+            else if (newBooking[1] == "")
+                return 4;
+
+            string[] tempData = new string[3];
+            tempData[0] = newBooking[0];
+            tempData[1] = newBooking[1];
+            tempData[2] = newBooking[2];
+
+            return ModifyBooking(tempData);
+        }
+
         public int ProcessDeleteBooking(Object data)
         {
             string bookingId = data.ToString();
             Match m = Regex.Match(bookingId, @"(\bb\d{7}$)", RegexOptions.None);
             if (m.Success)
             {
-                return FindBooking(bookingId);
+                return DeleteBooking(bookingId);
             }
             else
             {
@@ -120,7 +143,7 @@ namespace Business_Layer
         }
 
         /// Refactoring Idea:
-        /// Combine FindBooking, CreateBooking, ModifyBooking
+        /// Combine FindBooking, CreateBooking, ModifyBooking, DeleteBooking
         /// using flags to switch to the required operation
         
         /// <summary>
@@ -132,19 +155,14 @@ namespace Business_Layer
         {
             try
             {
-                if (data.Length == 8)
+                ArrayList BookingDetailsData = (ArrayList)dbController.HandleRequest("01", data);
+                if (BookingDetailsData != null)
                 {
-                    ArrayList BookingDetailsData = (ArrayList)dbController.HandleRequest("01", data);
-                    if (BookingDetailsData != null)
-                    {
-                        BuildBookingObject(BookingDetailsData);
-                        return 1;
-                    }
-                    else
-                        return 0;
+                    BuildBookingObject(BookingDetailsData);
+                    return 1;
                 }
                 else
-                    return -1;
+                    return 0;
             }
             catch(Exception ex)
             {
@@ -194,7 +212,6 @@ namespace Business_Layer
                 if (BookingDetailsData != null)
                 {
                     BuildBookingObject(BookingDetailsData);
-                    modifyBookingState = 1;
                     return 1;
                 }
                 else
@@ -210,6 +227,31 @@ namespace Business_Layer
             }
         }
         
+        /// <summary>
+        /// Find an existing booking in the database
+        /// </summary>
+        /// <param name="data">the booking id</param>
+        /// <returns>booking details</returns>
+        private int DeleteBooking(string data)
+        {
+            try
+            {
+                ArrayList BookingDetailsData = (ArrayList)dbController.HandleRequest("04", data);
+                if (BookingDetailsData != null)
+                {
+                    BuildBookingObject(BookingDetailsData);
+                    return 1;
+                }
+                else
+                    return 0;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message + "\n");
+                return 0;
+            }
+        }
+
         /// <summary>
         /// Build a new Booking Object from data retrieved from database
         /// </summary>
@@ -254,139 +296,5 @@ namespace Business_Layer
                     return "";
             }
         }
-
-        /// <summary>
-        /// Property used for updating booking information
-        /// </summary>
-        public int ModifyBookingState
-        {
-            get
-            {
-                return modifyBookingState;
-            }
-        }
-
-    }
-
-    /// <summary>
-    /// Booking class to store details about a booking
-    /// </summary>
-    public class Booking
-    {
-        private string BookingId;
-        private string MemberId;
-        private string DateTime;
-        private string ServiceDetails;
-        private string DateBooked;
-        private string Status;
-        //temp holder for key pair data structure
-        private string ServiceLog;
-
-        public Booking()
-        {
-            BookingId = "";
-            MemberId = "";
-            DateTime = "";
-            ServiceDetails = "";
-            DateBooked = "";
-            Status = "";
-            ServiceLog = "";
-        }
-
-        public Booking(ArrayList BookingDetailsData)
-        {
-            BookingId = BookingDetailsData[0].ToString();
-            MemberId = BookingDetailsData[1].ToString();
-            DateTime = BookingDetailsData[2].ToString();
-            ServiceDetails = BookingDetailsData[3].ToString();
-            DateBooked = BookingDetailsData[4].ToString();
-            Status = BookingDetailsData[5].ToString();
-            ServiceLog = BookingDetailsData[6].ToString();
-        }
-
-        public string bookingId
-        {
-            get
-            {
-                return BookingId;
-            }
-            set
-            {
-                BookingId = bookingId;
-            }
-        }
-
-        public string memberId
-        {
-            get
-            {
-                return MemberId;
-            }
-            set
-            {
-                MemberId = memberId;
-            }
-        }
-
-        public string dateTime
-        {
-            get
-            {
-                return DateTime;
-            }
-            set
-            {
-                DateTime = dateTime;
-            }
-        }
-
-        public string serviceDetails
-        {
-            get
-            {
-                return ServiceDetails;
-            }
-            set
-            {
-                ServiceDetails = serviceDetails;
-            }
-        }
-
-        public string dateBooked
-        {
-            get
-            {
-                return DateBooked;
-            }
-            set
-            {
-                DateBooked = dateBooked;
-            }
-        }
-
-        public string status
-        {
-            get
-            {
-                return Status;
-            }
-            set
-            {
-                Status = status;
-            }
-        }
-
-        public string serviceLog
-        {
-            get
-            {
-                return ServiceLog;
-            }
-            set
-            {
-                ServiceLog = serviceLog;
-            }
-        }
-
     }
 }

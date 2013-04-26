@@ -36,9 +36,10 @@
             this.dateTimeTxtBox = new System.Windows.Forms.TextBox();
             this.serviceDetailsTxtBox = new System.Windows.Forms.TextBox();
             this.createBtn = new System.Windows.Forms.Button();
-            this.textBtn = new System.Windows.Forms.Button();
             this.BookingDetailsTxtBox = new System.Windows.Forms.TextBox();
             this.modifyBookingBtn = new System.Windows.Forms.Button();
+            this.deleteBookingBtn = new System.Windows.Forms.Button();
+            this.autoCreateBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // searchBtn
@@ -112,16 +113,6 @@
             this.createBtn.UseVisualStyleBackColor = true;
             this.createBtn.Click += new System.EventHandler(this.createBtn_Click);
             // 
-            // textBtn
-            // 
-            this.textBtn.Location = new System.Drawing.Point(349, 400);
-            this.textBtn.Name = "textBtn";
-            this.textBtn.Size = new System.Drawing.Size(75, 23);
-            this.textBtn.TabIndex = 25;
-            this.textBtn.Text = "Test";
-            this.textBtn.UseVisualStyleBackColor = true;
-            this.textBtn.Click += new System.EventHandler(this.textBtn_Click);
-            // 
             // BookingDetailsTxtBox
             // 
             this.BookingDetailsTxtBox.Location = new System.Drawing.Point(99, 68);
@@ -141,14 +132,35 @@
             this.modifyBookingBtn.UseVisualStyleBackColor = true;
             this.modifyBookingBtn.Click += new System.EventHandler(this.modifyBookingBtn_Click);
             // 
+            // deleteBookingBtn
+            // 
+            this.deleteBookingBtn.Location = new System.Drawing.Point(347, 22);
+            this.deleteBookingBtn.Name = "deleteBookingBtn";
+            this.deleteBookingBtn.Size = new System.Drawing.Size(75, 23);
+            this.deleteBookingBtn.TabIndex = 28;
+            this.deleteBookingBtn.Text = "Delete";
+            this.deleteBookingBtn.UseVisualStyleBackColor = true;
+            this.deleteBookingBtn.Click += new System.EventHandler(this.deleteBookingBtn_Click);
+            // 
+            // autoCreateBtn
+            // 
+            this.autoCreateBtn.Location = new System.Drawing.Point(283, 400);
+            this.autoCreateBtn.Name = "autoCreateBtn";
+            this.autoCreateBtn.Size = new System.Drawing.Size(149, 23);
+            this.autoCreateBtn.TabIndex = 29;
+            this.autoCreateBtn.Text = "Auto Create Bookings";
+            this.autoCreateBtn.UseVisualStyleBackColor = true;
+            this.autoCreateBtn.Click += new System.EventHandler(this.autoCreateBtn_Click);
+            // 
             // BookingManagementMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(444, 435);
+            this.Controls.Add(this.autoCreateBtn);
+            this.Controls.Add(this.deleteBookingBtn);
             this.Controls.Add(this.modifyBookingBtn);
             this.Controls.Add(this.BookingDetailsTxtBox);
-            this.Controls.Add(this.textBtn);
             this.Controls.Add(this.createBtn);
             this.Controls.Add(this.serviceDetailsTxtBox);
             this.Controls.Add(this.dateTimeTxtBox);
@@ -174,8 +186,9 @@
         private System.Windows.Forms.TextBox dateTimeTxtBox;
         private System.Windows.Forms.TextBox serviceDetailsTxtBox;
         private System.Windows.Forms.Button createBtn;
-        private System.Windows.Forms.Button textBtn;
         private System.Windows.Forms.TextBox BookingDetailsTxtBox;
         private System.Windows.Forms.Button modifyBookingBtn;
+        private System.Windows.Forms.Button deleteBookingBtn;
+        private System.Windows.Forms.Button autoCreateBtn;
     }
 }

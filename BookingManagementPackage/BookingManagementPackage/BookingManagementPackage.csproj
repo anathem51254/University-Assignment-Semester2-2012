@@ -52,6 +52,7 @@
     <Compile Include="BookingManagementMainForm.Designer.cs">
       <DependentUpon>BookingManagementMainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GuiController.cs" />
     <Compile Include="ModifyBooking.cs">
       <SubType>Form</SubType>
     </Compile>

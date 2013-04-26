@@ -13,34 +13,30 @@ namespace BookingManagementPackage
 {
     public partial class ModifyBooking : Form
     {
-        private BookingManagement bookingManagement;
+        private GuiController guiController;
 
         public ModifyBooking()
         {
             InitializeComponent();
         }
 
-        public ModifyBooking(BookingManagement _bookingManagement)
+        public ModifyBooking(GuiController _guicontroller)
         {
             InitializeComponent();
-            bookingManagement = _bookingManagement;
+            guiController = _guicontroller;
         }
 
         public DialogResult ShowDialog(out int updateMainForm)
         {
             DialogResult dialogResult = base.ShowDialog();
 
-            updateMainForm = bookingManagement.ModifyBookingState;
+            updateMainForm = guiController.ModifyBookingState;
             return dialogResult;
         }
 
-        private int GuiController(string btnId, Object data)
+        private void FillBookingDetailsTxtBox()
         {
-            return bookingManagement.BusinessLogicController(btnId, data); ;
-        }
-
-        private void ModifyBooking_Load(object sender, EventArgs e)
-        {
+            BookingDetailsTxtBox.Text = "";
             for (int i = 1; i <= 7; i++)
             {
                 switch (i)
@@ -67,9 +63,13 @@ namespace BookingManagementPackage
                         BookingDetailsTxtBox.Text += "Service Log: ";
                         break;
                 }
-                BookingDetailsTxtBox.Text += "\t" + bookingManagement.GetBookingDetail("0" + i.ToString()) + "\r\n";
-
+                BookingDetailsTxtBox.Text += "\t" + guiController.GetBookingDetails("0" + i.ToString()) + "\r\n";
             }
+        }
+
+        private void ModifyBooking_Load(object sender, EventArgs e)
+        {
+            FillBookingDetailsTxtBox();
         }
 
         private void saveChangesBtn_Click(object sender, EventArgs e)
@@ -81,65 +81,12 @@ namespace BookingManagementPackage
             txtBoxData[0] = dateTimeTxtBox.Text;
             txtBoxData[1] = serviceDetailsTxtBox.Text;
 
-            int updateSuccess = GuiController("03", txtBoxData);
-
-            /// Notifies the client of any invalid or missing information
-            switch (updateSuccess)
+            string msg = guiController.SaveChangesBtnClick(txtBoxData);
+            if (guiController.resetBookingDetails == 1)
             {
-                case 0:
-                    MessageBox.Show("Could not update booking!");
-                    break;
-
-                case 1:
-                    MessageBox.Show("Successfully Updates!!");
-                    BookingDetailsTxtBox.Text = "";
-                    for (int i = 1; i <= 7; i++)
-                    { 
-                       switch (i)
-                       {
-                           case 1:
-                               BookingDetailsTxtBox.Text += "Booking Id: ";
-                               break;
-                           case 2:
-                               BookingDetailsTxtBox.Text += "Member Id: ";
-                               break;
-                           case 3:
-                               BookingDetailsTxtBox.Text += "Date Time: ";
-                               break;
-                           case 4:
-                               BookingDetailsTxtBox.Text += "Service Details: ";
-                               break;
-                           case 5:
-                               BookingDetailsTxtBox.Text += "Date Booked: ";
-                               break;
-                           case 6:
-                               BookingDetailsTxtBox.Text += "Status: \t";
-                               break;
-                           case 7:
-                               BookingDetailsTxtBox.Text += "Service Log: ";
-                               break;
-                       }
-                       BookingDetailsTxtBox.Text += "\t" + bookingManagement.GetBookingDetail("0" + i.ToString()) + "\r\n";
-                       
-                    }
-                    break;
-
-                case 2:
-                    MessageBox.Show("The Following are Empty Or have invalid Input:\n\n \t\"Date Time\"\n\t\"Service Details\"");
-                    break;
-
-                case 3:
-                    MessageBox.Show("The Following are Empty Or have invalid Input:\n\n \t\"Date Time\"");
-                    break;
-
-                case 4:
-                    MessageBox.Show("The Following are Empty Or have invalid Input:\n\n \t\"Service Details\"");
-                    break;
-
-                default:
-                    MessageBox.Show("Something Went Wrong! :<");
-                    break;
+                FillBookingDetailsTxtBox();
             }
+            MessageBox.Show(msg);   
         }
     }
 }

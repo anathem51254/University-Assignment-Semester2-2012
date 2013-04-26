@@ -14,18 +14,20 @@ namespace BookingManagementPackage
 {
     public partial class BookingManagementMainForm : Form
     {
+        private GuiController guiController;
         private BookingManagement bookingManagement;
         private ModifyBooking modifyBookingForm;
         
         public BookingManagementMainForm()
         {
             InitializeComponent();
+            guiController = new GuiController();
             bookingManagement = new BookingManagement();
 
             bookingIdTxtBox.Text = "b1000001";
         }
 
-        private int GuiController(string btnId, Object data)
+        private int GuiController(int btnId, Object data)
         {
             return bookingManagement.BusinessLogicController(btnId, data); ;
         }
@@ -35,11 +37,11 @@ namespace BookingManagementPackage
             BookingDetailsTxtBox.Text = "";
                 for (int i = 1; i <= 7; i++)
                 {
-                   
                    switch (i)
                    {
                        case 1:
                            BookingDetailsTxtBox.Text += "Booking Id: ";
+                           bookingIdTxtBox.Text = guiController.GetBookingDetails("0" + i.ToString());
                            break;
                        case 2:
                            BookingDetailsTxtBox.Text += "Member Id: ";
@@ -60,7 +62,7 @@ namespace BookingManagementPackage
                            BookingDetailsTxtBox.Text += "Service Log: ";
                            break;
                    }
-                   BookingDetailsTxtBox.Text += "\t" + bookingManagement.GetBookingDetail("0" + i.ToString()) + "\r\n";
+                   BookingDetailsTxtBox.Text += "\t" + guiController.GetBookingDetails("0" + i.ToString()) + "\r\n";
                 }
         }
 
@@ -68,18 +70,13 @@ namespace BookingManagementPackage
         {
             Object data = (Object)bookingIdTxtBox.Text;
 
-            int bookingFound = GuiController("01", data);
-
-            if (bookingFound == 1)
+            string msg = guiController.SearchBtnClick(data);
+            if (guiController.resetBookingDetails == 1)
             {
-                MessageBox.Show("Successfully Found!!");
                 FillBookingDetailsTxtBox();
             }
-            else if (bookingFound == 0)
-                MessageBox.Show("Could not find Booking!!");
-            else if (bookingFound == -1)
-                MessageBox.Show("Booking Id formatted incorrectly!!");
-       
+            MessageBox.Show(msg);
+
             //bookingIdTxtBox.Text = "";
         }
 
@@ -92,58 +89,50 @@ namespace BookingManagementPackage
             txtBoxData[0] = dateTimeTxtBox.Text;
             txtBoxData[1] = serviceDetailsTxtBox.Text;
 
-            int creationSuccess = GuiController("02", txtBoxData);
-
-            /// Notifies the client of any invalid or missing information
-            switch (creationSuccess)
+            string msg = guiController.CreateBtnClick(txtBoxData);
+            if (guiController.resetBookingDetails == 1)
             {
-                case 0:
-                    MessageBox.Show("Could not create booking!");
-                    break;
-
-                case 1:
-                    MessageBox.Show("Successfully Created!!");
-                    break;
-
-                case 2:
-                    MessageBox.Show("The Following are Empty Or have invalid Input:\n\n \t\"Date Time\"\n\t\"Service Details\"");
-                    break;
-
-                case 3:
-                    MessageBox.Show("The Following are Empty Or have invalid Input:\n\n \t\"Date Time\"");
-                    break;
-
-                case 4:
-                    MessageBox.Show("The Following are Empty Or have invalid Input:\n\n \t\"Service Details\"");
-                    break;
-
-                default:
-                    MessageBox.Show("Something Went Wrong! :<");
-                    break;
+                FillBookingDetailsTxtBox();
             }
-        }
-
-        private void textBtn_Click(object sender, EventArgs e)
-        {
-            Object data = null;
-            int i = GuiController("10", data);
-
-            if (i == 1)
-            {
-                MessageBox.Show("Done!!");
-            }
+            MessageBox.Show(msg);    
         }
 
         private void modifyBookingBtn_Click(object sender, EventArgs e)
         {
-            modifyBookingForm = new ModifyBooking(bookingManagement);
+            modifyBookingForm = new ModifyBooking(guiController);
             int updateMade = -1;
             modifyBookingForm.ShowDialog(out updateMade);
-
             if (updateMade == 1)
             {
-                BookingDetailsTxtBox.Text = "";
                 FillBookingDetailsTxtBox();
+            }
+        }
+
+        private void deleteBookingBtn_Click(object sender, EventArgs e)
+        {
+            Object data = (Object)bookingIdTxtBox.Text;
+
+            string msg = guiController.DeleteBookingBtnClick(data);
+            if (guiController.resetBookingDetails == 1)
+            {
+                BookingDetailsTxtBox.Text = "";
+                guiController._ClearBookingDetails();    
+            }
+            MessageBox.Show(msg);  
+            
+        }
+
+        private void autoCreateBtn_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            for (int i = 0; i < 20; i++)
+            {
+                int n = rnd.Next(0, 9);
+                string[] bookData = new string[2];
+                //RandomDay();
+                bookData[0] = guiController.RandomDateTime();
+                bookData[1] = guiController.GetBookingType(n);
+                string msg = guiController.CreateBtnClick(bookData);
             }
         }
     }
