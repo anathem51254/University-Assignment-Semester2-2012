@@ -28,29 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.serviceDetailsTxtBox = new System.Windows.Forms.TextBox();
-            this.dateTimeTxtBox = new System.Windows.Forms.TextBox();
             this.ServiceDetailsLbl = new System.Windows.Forms.Label();
             this.DateTimeLbl = new System.Windows.Forms.Label();
             this.saveChangesBtn = new System.Windows.Forms.Button();
             this.BookingDetailsTxtBox = new System.Windows.Forms.TextBox();
+            this.ServiceDetailsComboBox = new System.Windows.Forms.ComboBox();
+            this.DateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
-            // 
-            // serviceDetailsTxtBox
-            // 
-            this.serviceDetailsTxtBox.Location = new System.Drawing.Point(135, 245);
-            this.serviceDetailsTxtBox.MaxLength = 32;
-            this.serviceDetailsTxtBox.Name = "serviceDetailsTxtBox";
-            this.serviceDetailsTxtBox.Size = new System.Drawing.Size(100, 20);
-            this.serviceDetailsTxtBox.TabIndex = 23;
-            // 
-            // dateTimeTxtBox
-            // 
-            this.dateTimeTxtBox.Location = new System.Drawing.Point(135, 201);
-            this.dateTimeTxtBox.MaxLength = 24;
-            this.dateTimeTxtBox.Name = "dateTimeTxtBox";
-            this.dateTimeTxtBox.Size = new System.Drawing.Size(100, 20);
-            this.dateTimeTxtBox.TabIndex = 22;
             // 
             // ServiceDetailsLbl
             // 
@@ -89,15 +73,43 @@
             this.BookingDetailsTxtBox.Size = new System.Drawing.Size(236, 183);
             this.BookingDetailsTxtBox.TabIndex = 27;
             // 
+            // ServiceDetailsComboBox
+            // 
+            this.ServiceDetailsComboBox.FormattingEnabled = true;
+            this.ServiceDetailsComboBox.Items.AddRange(new object[] {
+            "General Service",
+            "Oil Change",
+            "Tire Change",
+            "Wheel Alignment",
+            "Stereo Install",
+            "Glass Replacement",
+            "Light Replacement",
+            "Battery Replacement",
+            "Lock Change",
+            "Spark Plug Replacement"});
+            this.ServiceDetailsComboBox.Location = new System.Drawing.Point(96, 243);
+            this.ServiceDetailsComboBox.Name = "ServiceDetailsComboBox";
+            this.ServiceDetailsComboBox.Size = new System.Drawing.Size(155, 21);
+            this.ServiceDetailsComboBox.TabIndex = 33;
+            this.ServiceDetailsComboBox.Text = "General Service";
+            // 
+            // DateTimePicker
+            // 
+            this.DateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.DateTimePicker.Location = new System.Drawing.Point(96, 201);
+            this.DateTimePicker.Name = "DateTimePicker";
+            this.DateTimePicker.Size = new System.Drawing.Size(155, 20);
+            this.DateTimePicker.TabIndex = 32;
+            // 
             // ModifyBooking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(260, 319);
+            this.ClientSize = new System.Drawing.Size(268, 319);
+            this.Controls.Add(this.ServiceDetailsComboBox);
+            this.Controls.Add(this.DateTimePicker);
             this.Controls.Add(this.BookingDetailsTxtBox);
             this.Controls.Add(this.saveChangesBtn);
-            this.Controls.Add(this.serviceDetailsTxtBox);
-            this.Controls.Add(this.dateTimeTxtBox);
             this.Controls.Add(this.ServiceDetailsLbl);
             this.Controls.Add(this.DateTimeLbl);
             this.Name = "ModifyBooking";
@@ -110,11 +122,11 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox serviceDetailsTxtBox;
-        private System.Windows.Forms.TextBox dateTimeTxtBox;
         private System.Windows.Forms.Label ServiceDetailsLbl;
         private System.Windows.Forms.Label DateTimeLbl;
         private System.Windows.Forms.Button saveChangesBtn;
         private System.Windows.Forms.TextBox BookingDetailsTxtBox;
+        private System.Windows.Forms.ComboBox ServiceDetailsComboBox;
+        private System.Windows.Forms.DateTimePicker DateTimePicker;
     }
 }

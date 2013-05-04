@@ -83,14 +83,20 @@ namespace Business_Layer
             /// Check booking detail textbox's and make sure they have data in them
             /// and print out which boxes need data
 
-            if (newBooking[0] == "" && newBooking[1] == "")
+            string bookingId = data.ToString();
+            Match m = Regex.Match(newBooking[0], @"(?n:^(?=\d)((?<month>(0?[13578])|1[02]|(0?[469]|11)(?!.31)|0?2(?(.29)(?=.29.((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|(16|[2468][048]|[3579][26])00))|(?!.3[01])))(?<sep>[-./])(?<day>0?[1-9]|[12]\d|3[01])\k<sep>(?<year>(1[6-9]|[2-9]\d)\d{2})(?(?=\x20\d)\x20|$))?(?<time>((0?[1-9]|1[012])(:[0-5]\d){0,2}(?i:\x20[AP]M))|([01]\d|2[0-3])(:[0-5]\d){1,2})?$)", RegexOptions.None);
+            if (m.Success && newBooking[1] != "")
+            {
+                return CreateBooking(data);
+            }
+            else if (newBooking[0] == "" && newBooking[1] == "")
                 return 2;
             else if (newBooking[0] == "")
                 return 3;
             else if (newBooking[1] == "")
                 return 4;
-
-            return CreateBooking(data);
+            else
+                return 5;
         }
 
         /// <summary>
@@ -105,19 +111,24 @@ namespace Business_Layer
             /// Check booking detail textbox's and make sure they have data in them
             /// and print out which boxes need data
 
-            if (newBooking[0] == "" && newBooking[1] == "")
+            Match m = Regex.Match(newBooking[0], @"(?n:^(?=\d)((?<month>(0?[13578])|1[02]|(0?[469]|11)(?!.31)|0?2(?(.29)(?=.29.((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|(16|[2468][048]|[3579][26])00))|(?!.3[01])))(?<sep>[-./])(?<day>0?[1-9]|[12]\d|3[01])\k<sep>(?<year>(1[6-9]|[2-9]\d)\d{2})(?(?=\x20\d)\x20|$))?(?<time>((0?[1-9]|1[012])(:[0-5]\d){0,2}(?i:\x20[AP]M))|([01]\d|2[0-3])(:[0-5]\d){1,2})?$)", RegexOptions.None);
+            if (m.Success && newBooking[1] != "")
+            {
+                string[] tempData = new string[3];
+                tempData[0] = newBooking[0];
+                tempData[1] = newBooking[1];
+                tempData[2] = bookingObj.bookingId;
+
+                return ModifyBooking(tempData);
+            }
+            else if (newBooking[0] == "" && newBooking[1] == "")
                 return 2;
             else if (newBooking[0] == "")
                 return 3;
             else if (newBooking[1] == "")
                 return 4;
-
-            string[] tempData = new string[3];
-            tempData[0] = newBooking[0];
-            tempData[1] = newBooking[1];
-            tempData[2] = bookingObj.bookingId;
-
-            return ModifyBooking(tempData);
+            else
+                return 5;
         }
 
         /// <summary>
@@ -133,19 +144,24 @@ namespace Business_Layer
             /// Check booking detail textbox's and make sure they have data in them
             /// and print out which boxes need data
 
-            if (newBooking[0] == "" && newBooking[1] == "")
+            Match m = Regex.Match(newBooking[0], @"(?n:^(?=\d)((?<month>(0?[13578])|1[02]|(0?[469]|11)(?!.31)|0?2(?(.29)(?=.29.((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|(16|[2468][048]|[3579][26])00))|(?!.3[01])))(?<sep>[-./])(?<day>0?[1-9]|[12]\d|3[01])\k<sep>(?<year>(1[6-9]|[2-9]\d)\d{2})(?(?=\x20\d)\x20|$))?(?<time>((0?[1-9]|1[012])(:[0-5]\d){0,2}(?i:\x20[AP]M))|([01]\d|2[0-3])(:[0-5]\d){1,2})?$)", RegexOptions.None);
+            if (m.Success && newBooking[1] != "")
+            {
+                string[] tempData = new string[3];
+                tempData[0] = newBooking[0];
+                tempData[1] = newBooking[1];
+                tempData[2] = bookingObj.bookingId;
+
+                return ModifyBooking(tempData);
+            }
+            else if (newBooking[0] == "" && newBooking[1] == "")
                 return 2;
             else if (newBooking[0] == "")
                 return 3;
             else if (newBooking[1] == "")
                 return 4;
-
-            string[] tempData = new string[3];
-            tempData[0] = newBooking[0];
-            tempData[1] = newBooking[1];
-            tempData[2] = newBooking[2];
-
-            return ModifyBooking(tempData);
+            else
+                return 5;
         }
 
         /// <summary>

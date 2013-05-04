@@ -24,6 +24,9 @@ namespace ARMS
             guiController = new GuiController();
             bookingManagement = new BookingManagement();
 
+            DateTimePicker.Format = DateTimePickerFormat.Custom;
+            DateTimePicker.CustomFormat = "MM'/'dd'/'yyyy hh':'mm tt";
+
             bookingIdTxtBox.Text = "b1000001";
         }
 
@@ -86,8 +89,8 @@ namespace ARMS
             string[] txtBoxData = new string[2];
 
             /// gets the data from the textboxes, ready to process
-            txtBoxData[0] = dateTimeTxtBox.Text;
-            txtBoxData[1] = serviceDetailsTxtBox.Text;
+            txtBoxData[0] = DateTimePicker.Value.ToString();
+            txtBoxData[1] = ServiceDetailsComboBox.Text;
 
             string msg = guiController.CreateBtnClick(txtBoxData);
             if (guiController.resetBookingDetails == 1)

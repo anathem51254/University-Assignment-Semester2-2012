@@ -77,6 +77,8 @@ namespace BookingManagementPackage
                     return "The Following are Empty Or have invalid Input:\n\n \t\"Date Time\"";
                 case 4:
                     return "The Following are Empty Or have invalid Input:\n\n \t\"Service Details\"";
+                case 5:
+                    return "Wrong Format!!";
                 default:
                     return "Something Went Wrong! :<";
             }
@@ -101,6 +103,8 @@ namespace BookingManagementPackage
                     return "The Following are Empty Or have invalid Input:\n\n \t\"Date Time\"";
                 case 4:
                     return "The Following are Empty Or have invalid Input:\n\n \t\"Service Details\"";
+                case 5:
+                    return "Wrong Format!!";
                 default:
                     return "Something Went Wrong! :<";
             }

@@ -33,13 +33,13 @@
             this.bookingIdLbl = new System.Windows.Forms.Label();
             this.DateTimeLbl = new System.Windows.Forms.Label();
             this.ServiceDetailsLbl = new System.Windows.Forms.Label();
-            this.dateTimeTxtBox = new System.Windows.Forms.TextBox();
-            this.serviceDetailsTxtBox = new System.Windows.Forms.TextBox();
             this.createBtn = new System.Windows.Forms.Button();
             this.BookingDetailsTxtBox = new System.Windows.Forms.TextBox();
             this.modifyBookingBtn = new System.Windows.Forms.Button();
             this.deleteBookingBtn = new System.Windows.Forms.Button();
             this.autoCreateBtn = new System.Windows.Forms.Button();
+            this.DateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.ServiceDetailsComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // searchBtn
@@ -81,27 +81,11 @@
             // ServiceDetailsLbl
             // 
             this.ServiceDetailsLbl.AutoSize = true;
-            this.ServiceDetailsLbl.Location = new System.Drawing.Point(37, 366);
+            this.ServiceDetailsLbl.Location = new System.Drawing.Point(37, 361);
             this.ServiceDetailsLbl.Name = "ServiceDetailsLbl";
             this.ServiceDetailsLbl.Size = new System.Drawing.Size(78, 13);
             this.ServiceDetailsLbl.TabIndex = 13;
             this.ServiceDetailsLbl.Text = "Service Details";
-            // 
-            // dateTimeTxtBox
-            // 
-            this.dateTimeTxtBox.Location = new System.Drawing.Point(160, 319);
-            this.dateTimeTxtBox.MaxLength = 24;
-            this.dateTimeTxtBox.Name = "dateTimeTxtBox";
-            this.dateTimeTxtBox.Size = new System.Drawing.Size(100, 20);
-            this.dateTimeTxtBox.TabIndex = 18;
-            // 
-            // serviceDetailsTxtBox
-            // 
-            this.serviceDetailsTxtBox.Location = new System.Drawing.Point(160, 363);
-            this.serviceDetailsTxtBox.MaxLength = 32;
-            this.serviceDetailsTxtBox.Name = "serviceDetailsTxtBox";
-            this.serviceDetailsTxtBox.Size = new System.Drawing.Size(100, 20);
-            this.serviceDetailsTxtBox.TabIndex = 19;
             // 
             // createBtn
             // 
@@ -152,18 +136,46 @@
             this.autoCreateBtn.UseVisualStyleBackColor = true;
             this.autoCreateBtn.Click += new System.EventHandler(this.autoCreateBtn_Click);
             // 
+            // DateTimePicker
+            // 
+            this.DateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.DateTimePicker.Location = new System.Drawing.Point(121, 316);
+            this.DateTimePicker.Name = "DateTimePicker";
+            this.DateTimePicker.Size = new System.Drawing.Size(155, 20);
+            this.DateTimePicker.TabIndex = 30;
+            // 
+            // ServiceDetailsComboBox
+            // 
+            this.ServiceDetailsComboBox.FormattingEnabled = true;
+            this.ServiceDetailsComboBox.Items.AddRange(new object[] {
+            "General Service",
+            "Oil Change",
+            "Tire Change",
+            "Wheel Alignment",
+            "Stereo Install",
+            "Glass Replacement",
+            "Light Replacement",
+            "Battery Replacement",
+            "Lock Change",
+            "Spark Plug Replacement"});
+            this.ServiceDetailsComboBox.Location = new System.Drawing.Point(121, 358);
+            this.ServiceDetailsComboBox.Name = "ServiceDetailsComboBox";
+            this.ServiceDetailsComboBox.Size = new System.Drawing.Size(155, 21);
+            this.ServiceDetailsComboBox.TabIndex = 31;
+            this.ServiceDetailsComboBox.Text = "General Service";
+            // 
             // BookingManagementMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(444, 435);
+            this.Controls.Add(this.ServiceDetailsComboBox);
+            this.Controls.Add(this.DateTimePicker);
             this.Controls.Add(this.autoCreateBtn);
             this.Controls.Add(this.deleteBookingBtn);
             this.Controls.Add(this.modifyBookingBtn);
             this.Controls.Add(this.BookingDetailsTxtBox);
             this.Controls.Add(this.createBtn);
-            this.Controls.Add(this.serviceDetailsTxtBox);
-            this.Controls.Add(this.dateTimeTxtBox);
             this.Controls.Add(this.ServiceDetailsLbl);
             this.Controls.Add(this.DateTimeLbl);
             this.Controls.Add(this.bookingIdLbl);
@@ -183,12 +195,12 @@
         private System.Windows.Forms.Label bookingIdLbl;
         private System.Windows.Forms.Label DateTimeLbl;
         private System.Windows.Forms.Label ServiceDetailsLbl;
-        private System.Windows.Forms.TextBox dateTimeTxtBox;
-        private System.Windows.Forms.TextBox serviceDetailsTxtBox;
         private System.Windows.Forms.Button createBtn;
         private System.Windows.Forms.TextBox BookingDetailsTxtBox;
         private System.Windows.Forms.Button modifyBookingBtn;
         private System.Windows.Forms.Button deleteBookingBtn;
         private System.Windows.Forms.Button autoCreateBtn;
+        private System.Windows.Forms.DateTimePicker DateTimePicker;
+        private System.Windows.Forms.ComboBox ServiceDetailsComboBox;
     }
 }
