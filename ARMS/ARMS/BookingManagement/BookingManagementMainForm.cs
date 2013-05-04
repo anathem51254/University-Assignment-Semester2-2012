@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using Business_Layer;
 
-namespace BookingManagementPackage
+namespace ARMS
 {
     public partial class BookingManagementMainForm : Form
     {
