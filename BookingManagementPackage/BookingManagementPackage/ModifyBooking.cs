@@ -51,7 +51,7 @@ namespace BookingManagementPackage
                         BookingDetailsTxtBox.Text += "Member Id: ";
                         break;
                     case 3:
-                        BookingDetailsTxtBox.Text += "Date Time: ";
+                        BookingDetailsTxtBox.Text += "Date Created: ";
                         break;
                     case 4:
                         BookingDetailsTxtBox.Text += "Service Details: ";
