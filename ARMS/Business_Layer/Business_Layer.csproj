@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdministrationManagement\Customer.cs" />
+    <Compile Include="AdministrationManagement\Staff.cs" />
     <Compile Include="BookingManagement\Booking.cs" />
     <Compile Include="BookingManagement\BookingManagement.cs" />
     <Compile Include="CustomerManagement\CustomerDetail.cs" />
@@ -52,6 +54,7 @@
       <Name>Database_Access_Layer</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

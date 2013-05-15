@@ -28,19 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.adminMngSysBtn = new System.Windows.Forms.Button();
             this.bookinMngBtn = new System.Windows.Forms.Button();
             this.btnCMS = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // adminMngSysBtn
             // 
-            this.button1.Location = new System.Drawing.Point(127, 60);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(117, 46);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Administration Management system";
-            this.button1.UseVisualStyleBackColor = true;
+            this.adminMngSysBtn.Location = new System.Drawing.Point(127, 60);
+            this.adminMngSysBtn.Name = "adminMngSysBtn";
+            this.adminMngSysBtn.Size = new System.Drawing.Size(117, 46);
+            this.adminMngSysBtn.TabIndex = 0;
+            this.adminMngSysBtn.Text = "Administration Management system";
+            this.adminMngSysBtn.UseVisualStyleBackColor = true;
+            this.adminMngSysBtn.Click += new System.EventHandler(this.adminMngSysBtn_Click);
             // 
             // bookinMngBtn
             // 
@@ -69,7 +70,7 @@
             this.ClientSize = new System.Drawing.Size(388, 362);
             this.Controls.Add(this.btnCMS);
             this.Controls.Add(this.bookinMngBtn);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.adminMngSysBtn);
             this.Name = "StartPage";
             this.Text = "Start Page";
             this.ResumeLayout(false);
@@ -78,7 +79,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button adminMngSysBtn;
         private System.Windows.Forms.Button bookinMngBtn;
         private System.Windows.Forms.Button btnCMS;
 

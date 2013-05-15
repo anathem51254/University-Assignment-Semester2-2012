@@ -550,5 +550,420 @@ namespace Database_Access_Layer
         }
 
         #endregion
+
+        #region AdminManagement
+
+        public bool CreateCustomerAccount(string userName, string pw, string fName, string lName, string DOB, string Gender, string email)
+        {
+            bool isCreated = false;
+            dbCon.Open();
+            int customerID;
+
+            try
+            {
+                ////Finding the last customerID
+                string sqlQuery = "Select MAX(customerID) FROM CustomerAccount";
+                OleDbCommand cmd = new OleDbCommand(sqlQuery, dbCon);
+
+                try
+                {
+                    customerID = (int)cmd.ExecuteScalar() + 1;
+                }
+                catch
+                {
+                    customerID = 00000001;
+                }
+
+                //}
+
+                //Convert.ToInt32.
+                //register the new customer
+                sqlQuery = "INSERT INTO CustomerAccount (customerID,userName, [password], firstName, lastName, DOB, gender, email)  "
+                            + "VALUES('" + customerID + "','" + userName + "', '" + pw + "', '" + fName + "', '" + lName + "', '" + DOB + "', '" + Gender + "', '" + email + "' )";
+                OleDbCommand command = new OleDbCommand(sqlQuery, dbCon);
+                command.ExecuteNonQuery();
+                dbCon.Close();
+
+                isCreated = true;
+
+            }
+            catch
+            {
+                throw new ArgumentException();
+            }
+            finally
+            {
+                dbCon.Close();
+            }
+
+            return isCreated;
+        }
+
+
+        //Delete cust
+        public bool DeleteCustomerAccount(string username)
+        {
+            bool isDeleted = false;
+            dbCon.Open();
+
+            try
+            {
+                //delete customer with username
+                string sql = "DELETE FROM CustomerAccount WHERE userName='" + username + "'";
+                OleDbCommand command = new OleDbCommand(sql, dbCon);
+                command.ExecuteNonQuery();
+                dbCon.Close();
+
+                isDeleted = true;
+            }
+            catch
+            {
+                throw new Exception();
+            }
+            finally
+            {
+                dbCon.Close();
+            }
+            return isDeleted;
+        }
+
+        //Modify cust
+        public bool ChangeCustomerAccount(string userName, string pw, string fName, string lName, string DOB, string Gender, string email)
+        {
+            bool isUpdated = false;
+            dbCon.Open();
+
+            try
+            {
+                //Update the cust status
+                string sql = "UPDATE CustomerAccount SET [password]='" + pw + "',firstName= '" + fName + "',lastName= '" + lName + "',DOB= '" + DOB + "',gender= '" + Gender + "',email= '" + email + "'WHERE userName= '" + userName + "'";
+
+
+                OleDbCommand command = new OleDbCommand(sql, dbCon);
+                command.ExecuteNonQuery();
+                dbCon.Close();
+
+                isUpdated = true;
+
+            }
+            catch
+            {
+                throw new ArgumentException();
+            }
+            finally
+            {
+                dbCon.Close();
+            }
+
+            return isUpdated;
+        }
+
+        //check cust username
+        public bool CheckCustUsername(string userName)
+        {
+            bool isValid = false;
+
+            dbCon.Open();
+
+            try
+            {
+                //get the cust username
+                string sql = "SELECT userName FROM CustomerAccount WHERE userName= '" + userName + "'";
+                
+                OleDbCommand command = new OleDbCommand(sql, dbCon);
+                //command.ExecuteNonQuery();
+                string user = null;
+                //Console.WriteLine(command.ExecuteNonQuery().Equals(userName));
+                OleDbDataReader reader = command.ExecuteReader();
+                //connection.Close();
+                while (reader.Read())
+                {
+                    user = reader.GetString(0);
+                }
+                if (user == userName)
+                {
+                    isValid = false;
+                }
+                else
+                {
+                    isValid = true;
+                }
+            }
+            catch
+            {
+                throw new ArgumentException();
+            }
+            finally
+            {
+                dbCon.Close();
+            }
+
+            return isValid;
+        }
+
+        //read customer information
+        public string[] ReadCustInfo(string userName)
+        {
+            string[] Cinfo = new string[8];
+
+            dbCon.Open();
+
+            try
+            {
+                //get the cust info
+                string sql = "SELECT customerID, [password], userName, firstName, lastName, DOB, gender, email FROM CustomerAccount WHERE userName= '" + userName + "'";
+
+
+                OleDbCommand command = new OleDbCommand(sql, dbCon);
+                string userCID = null;
+                string uname = null;
+                string fname = null;
+                string lname = null;
+                string dob = null;
+                string gender = null;
+                string email = null;
+                string pw = null;
+                OleDbDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    userCID = reader["customerID"].ToString();
+                    uname = reader["userName"].ToString();
+                    fname = reader["firstName"].ToString();
+                    lname = reader["lastName"].ToString();
+                    dob = reader["DOB"].ToString();
+                    gender = reader["gender"].ToString();
+                    email = reader["email"].ToString();
+                    pw = reader["password"].ToString();
+                }
+                if (uname == userName)
+                {
+                    Cinfo[0] = userCID;
+                    Cinfo[1] = uname;
+                    Cinfo[2] = fname;
+                    Cinfo[3] = lname;
+                    Cinfo[4] = dob;
+                    Cinfo[5] = gender;
+                    Cinfo[6] = email;
+                    Cinfo[7] = pw;
+                }
+
+            }
+            catch
+            {
+                throw new ArgumentException();
+            }
+            finally
+            {
+                dbCon.Close();
+            }
+
+            return Cinfo;
+        }
+
+        //STAFF
+        //
+        //
+        public bool CreateStaffAccount(string userName, string fname, string lname, string pw, string dob, string gender)
+        {
+            bool isCreated = false;
+            dbCon.Open();
+            int staffID;
+
+            try
+            {
+                ////Finding the last staffID
+                string sqlQuery = "Select MAX(StaffID) FROM StaffAccount";
+                OleDbCommand cmd = new OleDbCommand(sqlQuery, dbCon);
+
+                try
+                {
+                    staffID = (int)cmd.ExecuteScalar() + 1;
+                }
+                catch
+                {
+                    staffID = 000001;
+                }
+
+                sqlQuery = "INSERT INTO StaffAccount (StaffID,s_username, s_FName, s_LName, [s_password], s_DOB, s_gender)  "
+                            + "VALUES('" + staffID + "','" + userName + "', '" + fname + "', '" + lname + "', '" + pw + "', '" + dob + "', '" + gender + "' )";
+                OleDbCommand command = new OleDbCommand(sqlQuery, dbCon);
+                command.ExecuteNonQuery();
+                dbCon.Close();
+
+                isCreated = true;
+
+            }
+            catch
+            {
+                throw new ArgumentException();
+            }
+            finally
+            {
+                dbCon.Close();
+            }
+
+            return isCreated;
+        }
+
+
+        //Delete staff
+        public bool DeleteStaffAccount(string username)
+        {
+            bool isDeleted = false;
+            dbCon.Open();
+
+            try
+            {
+                //delete staff with their username
+                string sql = "DELETE FROM StaffAccount WHERE s_username='" + username + "'";
+                OleDbCommand command = new OleDbCommand(sql, dbCon);
+                command.ExecuteNonQuery();
+                dbCon.Close();
+
+                isDeleted = true;
+            }
+            catch
+            {
+                throw new Exception();
+            }
+            finally
+            {
+                dbCon.Close();
+            }
+            return isDeleted;
+        }
+
+        //Modify staff
+        public bool ChangeStaffAccount(string userName, string fname, string lname, string pw, string dob, string gender)
+        {
+            bool isUpdated = false;
+
+            dbCon.Open();
+
+            try
+            {
+                //Update the staff status
+                string sql = "UPDATE StaffAccount SET s_FName='" + fname + "',s_LName= '" + lname + "',[s_password]= '" + pw + "',s_DOB= '" + dob + "',s_gender= '" + gender + "'WHERE s_username= '" + userName + "'";
+                
+                OleDbCommand command = new OleDbCommand(sql, dbCon);
+                command.ExecuteNonQuery();
+                dbCon.Close();
+
+                isUpdated = true;
+
+            }
+            catch
+            {
+                throw new ArgumentException();
+            }
+            finally
+            {
+                dbCon.Close();
+            }
+            return isUpdated;
+        }
+
+
+        //check staff username
+        public bool CheckStaffUsername(string userName)
+        {
+            bool isValid = false;
+
+            dbCon.Open();
+
+            try
+            {
+                //get the cust username
+                string sql = "SELECT s_username FROM StaffAccount WHERE s_username= '" + userName + "'";
+
+
+                OleDbCommand command = new OleDbCommand(sql, dbCon);
+                string user = null;
+                OleDbDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    user = reader.GetString(0);
+                }
+                if (user == userName)
+                {
+                    isValid = false;
+                }
+                else
+                {
+                    isValid = true;
+                }
+            }
+            catch
+            {
+                throw new ArgumentException();
+            }
+            finally
+            {
+                dbCon.Close();
+            }
+
+            return isValid;
+        }
+
+
+        //read staff info
+        public string[] readStaffInfo(string userName)
+        {
+            string userCID = null;
+            string uname = null;
+            string fname = null;
+            string lname = null;
+            string dob = null;
+            string gender = null;
+            string pw = null;
+            string[] Sinfo = new string[7];
+
+            dbCon.Open();
+
+            try
+            {
+                //get the cust username
+                string sql = "SELECT StaffID, [s_password], s_username, s_FName, s_LName, s_DOB, s_gender FROM StaffAccount WHERE s_username= '" + userName + "'";
+
+
+                OleDbCommand command = new OleDbCommand(sql, dbCon);
+
+                OleDbDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    userCID = reader["StaffID"].ToString();
+                    uname = reader["s_username"].ToString();
+                    fname = reader["s_FName"].ToString();
+                    lname = reader["s_LName"].ToString();
+                    dob = reader["s_DOB"].ToString();
+                    gender = reader["s_gender"].ToString();
+                    pw = reader["s_password"].ToString();
+                }
+                if (uname == userName)
+                {
+                    Sinfo[0] = userCID;
+                    Sinfo[1] = uname;
+                    Sinfo[2] = fname;
+                    Sinfo[3] = lname;
+                    Sinfo[4] = dob;
+                    Sinfo[5] = gender;
+                    Sinfo[6] = pw;
+                }
+            }
+            catch
+            {
+                throw new ArgumentException();
+            }
+            finally
+            {
+                dbCon.Close();
+            }
+            return Sinfo;
+        }
+
+        #endregion
     }
 }

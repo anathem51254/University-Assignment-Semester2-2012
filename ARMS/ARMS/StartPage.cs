@@ -27,5 +27,11 @@ namespace ARMS
             BookingManagementMainForm booking = new BookingManagementMainForm();
             booking.ShowDialog();
         }
+
+        private void adminMngSysBtn_Click(object sender, EventArgs e)
+        {
+            AdministrationManagementPackage admin = new AdministrationManagementPackage();
+            admin.ShowDialog();
+        }
     }
 }
